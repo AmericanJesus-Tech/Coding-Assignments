@@ -1,0 +1,52 @@
+h1  {
+    color: crimson;
+}
+
+h3 {
+    color: gold;
+}
+
+ul {
+    border-style: groove;
+    border-width: 2px;
+    border-color: black;
+    border-radius: 4px;
+}
+
+li:hover {
+background-color:gold;
+}
+
+img {
+    border-style: groove;
+    border-width: 3px;
+    border-color: black;
+    border-radius: 6px;
+}
+
+p {
+    background-color: aquamarine;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+tr{
+background-color: ivory;
+}
+
+tr:hover{
+color: darkred;
+}
+
+form {
+    background-color: brown;
+    
+}
