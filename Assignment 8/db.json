@@ -1,0 +1,42 @@
+{
+    "Make": [
+    {
+        "id": 1,
+        "Make": "Honda"
+    },
+    {
+        "id": 2,
+        "Make": "Dodge"
+    },
+    {
+        "id": 3,
+        "Make": "Ford"
+    },
+    {
+        "id": 4,
+        "Make": "Toyota"
+    }
+    ],
+    "Model": [
+        {
+            "id": 1,
+            "Model": "Civic",
+            "ModelId": 1
+        },
+        {
+            "id": 2,
+            "Model": "Charger",
+            "ModelId": 2
+        },
+        {
+            "id": 3,
+            "Model": "Mustang",
+            "ModelId": 3
+        },
+        {
+            "id": 4,
+            "Model": "Camry",
+            "ModelId": 4
+        }
+    ]
+}
