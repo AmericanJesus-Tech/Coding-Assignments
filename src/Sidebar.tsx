@@ -1,31 +1,53 @@
+import { useState } from "react"
 import SlideThumbnail from "./SlideThumbnail"
-import SexierSquidward from "./assets/Sexier Squidward.jpeg"
+import type { Slide } from "./types"
 
-const slides =[
-    {
-        id: 0,
-        order: 1,
-        image: SexierSquidward
-    },
-    {
-        id: 1,
-        order: 2,
-        image: SexierSquidward
-    },
-    {
-        id: 2,
-        order: 3,
-        image: SexierSquidward
+
+
+type SidebarProps = {
+    slides: Array<Slide>
+    selectedSlideId: number
+    setSelectedSlideId: (newValue: number) => void
+    deleteSlide: (id: number) => void
+}
+
+export default function Sidebar({
+        slides, 
+        selectedSlideId, 
+        setSelectedSlideId, 
+        deleteSlide
+    }: SidebarProps) {
+    const [isExpanded, setIsExpanded] = useState(true)
+
+    const handleButtonClick = () => {
+        setIsExpanded(!isExpanded)
     }
-]
 
-export default function Sidebar() {
+    const handleSlideClick = (id: number) => {
+        setSelectedSlideId(id)
+    }
+
     return (
-    <div className="border-end bg-light p-3 d-flex flex-column">
-        { slides.map( s => <SlideThumbnail key={s.id} slide={ s }/> )}
-        <SlideThumbnail slide={slides[0]}/>
-        <SlideThumbnail slide={slides[1]}/>
-        <SlideThumbnail slide={slides[2]}/>
-    </div>
+        <>
+            {isExpanded ? (
+                <div className="border-end bg-light p-3 d-flex flex-column">
+                    {slides.map( s => (
+                        <SlideThumbnail 
+                        key={s.id} 
+                        slide={s} 
+                        onSelected={handleSlideClick} 
+                        isSelected={s.id === selectedSlideId}
+                        deleteSlide={deleteSlide}
+                        /> 
+                    ))}
+                </div>
+            ) : null}
+            <button
+                className="btn btn-light p-1 border" 
+                onClick={handleButtonClick}
+            >
+                { isExpanded ? "<" : ">"}
+            </button>
+        </>
     )
 }

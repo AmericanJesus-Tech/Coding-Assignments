@@ -1,9 +1,25 @@
+import type { Slide } from "./types"
 
-export default function SlideThumbnail({ slide }: { slide: { order: number, image: string}}) {
+type SlideThumbnailProps = {
+    slide: Slide
+    isSelected: boolean
+    onSelected: (id: number) => void
+    deleteSlide: (id: number) => void
+}
+
+export default function SlideThumbnail({ slide, isSelected, onSelected, deleteSlide }: SlideThumbnailProps ) {
     return (
-    <>
-        <span>{slide.order}</span>
-        <img src={slide.image} style={{width: "7rem"}} onClick={() => alert("Selected?")}/>
-    </>
+    <div>
+        <div className="d-flex justify-content-between mt-2 mb-1 align-items-center">
+            <span>{slide.order}</span>
+            <button className="btn btn-sm btn-outline-danger" onClick={() => deleteSlide(slide.id)}>X</button>
+        </div>
+        <img 
+            src={slide.image} 
+            style={{width: "7rem"}} 
+            onClick={() => onSelected(slide.id)}
+            className={`border border-2 rounded-4${isSelected ? "border-primary" : "border-light"}`}
+        />
+    </div>
     )
 }
