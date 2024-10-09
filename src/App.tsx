@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Toolbar from "./Toolbar"
 import SlideView from "./SlideView"
 import Sidebar from "./Sidebar"
@@ -11,27 +11,40 @@ const TestSlides =[
       order: 1,
       image: SexierSquidward,
       text: "Sexy Squidward",
-      fontColor: "black"
+      fontColor: "black",
+      speakerNotes: "Notes",
+      fontFamily: "Verdana",
+      fontSize: "14"
   },
   {
       id: 1,
       order: 2,
       image: SexierSquidward,
       text: "Sexy Squidward",
-      fontColor: "black"
+      fontColor: "black",
+      speakerNotes: "Notes",
+      fontFamily: "Verdana",
+      fontSize: "14"
   },
   {
       id: 2,
       order: 3,
       image: SexierSquidward,
       text: "Sexy Squidward",
-      fontColor: "black"
+      fontColor: "black",
+      speakerNotes: "Notes",
+      fontFamily: "Verdana",
+      fontSize: "14"
   }
 ]
 
 export default function App() {
   const [slides, setSlides] = useState<Slide[]>(TestSlides)
   const [selectedSlideId, setSelectedSlideId] = useState(0)
+
+  useEffect(() => {
+    document.title = `Slides (${slides.length})`
+  }, [slides.length])
 
   const selectedSlide = slides.find(s => s.id === selectedSlideId)
 
@@ -41,7 +54,10 @@ export default function App() {
         order: 4,
         image: SexierSquidward,
         text: "Sexy Squidward",
-        fontColor: "black"
+        fontColor: "black",
+        speakerNotes: "Notes",
+        fontFamily: "Verdana",
+        fontSize: "14"
     }
 
     setSlides( [ ...slides, blankSlide ] )
@@ -51,25 +67,36 @@ export default function App() {
     setSlides( slides.filter(s => s.id !== idToDelete))
   }
 
-  const updateSlideFontColor = (newColor: string, idToUpdate?: number) => {
-    setSlides(slides.map(slide => (
+  const updateSlide = ( property: string, newValue: string, idToUpdate?: number) => {
+    if (idToUpdate === undefined) {
+      return
+    }
+    
+    setSlides(currentSlides => currentSlides.map(slide => (
       slide.id !== idToUpdate ? slide : {
         ...slide,
-        fontColor: newColor
+        [property]: newValue
       }
     )))
   }
 
   return (
     <div className="d-flex flex-column vh-100">
-      <Toolbar selectedSlide={selectedSlide} addBlankSlide = {addBlankSlide} updateSlideFontColor={updateSlideFontColor}/>
+      <Toolbar 
+      selectedSlide={selectedSlide} 
+      addBlankSlide = {addBlankSlide} 
+      updateSlide={updateSlide}
+      />
       <div className="d-flex flex-grow-1">
         <Sidebar 
         slides={slides} 
         deleteSlide={deleteSlide}
         selectedSlideId={selectedSlideId} 
         setSelectedSlideId={setSelectedSlideId}/>
-        <SlideView slide={selectedSlide}/>
+        <SlideView 
+        slide={selectedSlide}
+        updateSlide={updateSlide}
+        />
       </div>
     </div>
   )
